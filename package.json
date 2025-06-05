@@ -1,0 +1,24 @@
+{
+  "name": "jira-mcp",
+  "version": "1.0.0",
+  "description": "Jira automation MCP server",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "bun --watch run index.ts",
+    "start": "bun run index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "dotenv": "^16.5.0"
+  },
+  "devDependencies": {
+    "bun-types": "^1.0.7"
+  },
+  "mcp": {
+    "name": "jira-mcp",
+    "version": "1.0.0",
+    "description": "Jira automation MCP server",
+    "transport": "stdio",
+    "command": ["bun", "run", "start"]
+  }
+}

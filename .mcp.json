@@ -1,0 +1,265 @@
+{
+  "name": "jira-mcp",
+  "version": "1.0.0",
+  "description": "Jira automation MCP server",
+  "tools": [
+    {
+      "name": "create_jira_issue",
+      "description": "Create a new Jira issue",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectKey": {
+            "type": "string",
+            "description": "The project key (e.g., 'PROJ')"
+          },
+          "issueType": {
+            "type": "string",
+            "description": "Issue type name. The server will try to match this with available issue types in your Jira instance (e.g., 'Story', 'Bug', 'Task', 'Subtask', etc.). Case-insensitive."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief summary/title of the issue"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the issue"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Priority level (e.g., 'High', 'Medium', 'Low')",
+            "default": "Medium"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "Email or username of assignee (optional)"
+          },
+          "epicKey": {
+            "type": "string",
+            "description": "Key of the epic to link this issue to (e.g., 'PROJ-123'). Only works for Story, Task, and Bug issue types."
+          },
+          "epicName": {
+            "type": "string",
+            "description": "Name of the epic (required only when creating an Epic issue type)"
+          },
+          "parentIssueKey": {
+            "type": "string",
+            "description": "Key of the parent issue (required when creating a subtask). The issue type must be a subtask type."
+          }
+        },
+        "required": ["projectKey", "issueType", "summary"]
+      }
+    },
+    {
+      "name": "get_jira_issue",
+      "description": "Get details of a Jira issue",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issueKey": {
+            "type": "string",
+            "description": "The issue key (e.g., 'PROJ-123')"
+          }
+        },
+        "required": ["issueKey"]
+      }
+    },
+    {
+      "name": "search_jira_issues",
+      "description": "Search for Jira issues using JQL",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "jql": {
+            "type": "string",
+            "description": "JQL query string (e.g., 'project = PROJ AND status = Open')"
+          },
+          "maxResults": {
+            "type": "number",
+            "description": "Maximum number of results to return",
+            "default": 20
+          }
+        },
+        "required": ["jql"]
+      }
+    },
+    {
+      "name": "get_jira_projects",
+      "description": "Get list of available Jira projects",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "random_string": {
+            "type": "string",
+            "description": "Dummy parameter for no-parameter tools"
+          }
+        },
+        "required": ["random_string"]
+      }
+    },
+    {
+      "name": "update_jira_issue",
+      "description": "Update an existing Jira issue",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issueKey": {
+            "type": "string",
+            "description": "The issue key (e.g., 'PROJ-123')"
+          },
+          "summary": {
+            "type": "string",
+            "description": "New summary/title"
+          },
+          "description": {
+            "type": "string",
+            "description": "New description"
+          },
+          "priority": {
+            "type": "string",
+            "description": "New priority level"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "New assignee email or username"
+          },
+          "epicKey": {
+            "type": "string",
+            "description": "Key of the epic to link this issue to (e.g., 'PROJ-123')"
+          },
+          "status": {
+            "type": "string",
+            "description": "New status to transition to (e.g., 'To Do', 'In Progress', 'Done')"
+          }
+        },
+        "required": ["issueKey"]
+      }
+    },
+    {
+      "name": "add_jira_comment",
+      "description": "Add a comment to a Jira issue",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issueKey": {
+            "type": "string",
+            "description": "The issue key (e.g., 'PROJ-123')"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Comment text"
+          }
+        },
+        "required": ["issueKey", "comment"]
+      }
+    },
+    {
+      "name": "transition_jira_issue",
+      "description": "Transition a Jira issue to a new status",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issueKey": {
+            "type": "string",
+            "description": "The issue key (e.g., 'PROJ-123')"
+          },
+          "transitionName": {
+            "type": "string",
+            "description": "Name of the transition (e.g., 'In Progress', 'Done', 'Close Issue')"
+          }
+        },
+        "required": ["issueKey", "transitionName"]
+      }
+    },
+    {
+      "name": "get_sprints",
+      "description": "Get list of sprints for a project",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectKey": {
+            "type": "string",
+            "description": "The project key (e.g., 'PROJ')"
+          }
+        },
+        "required": ["projectKey"]
+      }
+    },
+    {
+      "name": "move_to_sprint",
+      "description": "Move an issue to a sprint",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "issueKey": {
+            "type": "string",
+            "description": "The issue key to move (e.g., 'PROJ-123')"
+          },
+          "sprintId": {
+            "type": "number",
+            "description": "The ID of the sprint to move the issue to"
+          }
+        },
+        "required": ["issueKey", "sprintId"]
+      }
+    },
+    {
+      "name": "get_sprint_issues",
+      "description": "Get list of issues in a sprint",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sprintId": {
+            "type": "number",
+            "description": "The ID of the sprint"
+          }
+        },
+        "required": ["sprintId"]
+      }
+    },
+    {
+      "name": "get_boards",
+      "description": "Get list of boards for a project",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectKey": {
+            "type": "string",
+            "description": "The project key (e.g., 'PROJ')"
+          }
+        },
+        "required": ["projectKey"]
+      }
+    },
+    {
+      "name": "update_sprint",
+      "description": "Update sprint details",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sprintId": {
+            "type": "number",
+            "description": "The ID of the sprint to update"
+          },
+          "name": {
+            "type": "string",
+            "description": "New name for the sprint"
+          },
+          "goal": {
+            "type": "string",
+            "description": "New goal for the sprint"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "New start date (ISO format)"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "New end date (ISO format)"
+          }
+        },
+        "required": ["sprintId"]
+      }
+    }
+  ]
+} 

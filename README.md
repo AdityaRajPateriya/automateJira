@@ -176,7 +176,7 @@ The server provides the following tools:
         }
     }
    ```
-   ![Claude Desktop Configuration](images/vscode.png)
+   ![Claude Desktop Configuration](vscode.png)
 
 2. Restart your IDE/editor
 
@@ -204,7 +204,7 @@ The server provides the following tools:
    }
    ```
 
-    ![Claude Desktop Configuration](images/claude-config.png)
+    ![Claude Desktop Configuration](claude-config.png)
 
     ![Claude Desktop Server Reoload](reolod-claude-server.png)
 
